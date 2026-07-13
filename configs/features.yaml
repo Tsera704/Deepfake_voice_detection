@@ -1,0 +1,16 @@
+sampling_rate: 16000
+n_mfcc: 20
+n_lfcc: 20
+n_cqcc: 20
+frame_length: 25.0 # in milliseconds
+frame_stride: 10.0 # in milliseconds
+window_type: "hamming"
+pre_emphasis: 0.97
+
+# Utterance-level statistics to compute over the frames
+stats:
+  - "mean"
+  - "std"
+  - "skew"
+  - "kurtosis"
+  - "median"

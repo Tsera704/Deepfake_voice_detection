@@ -1,0 +1,4 @@
+imputation:
+  strategy: "most_frequent"
+  missing_values: "NaN"
+  add_indicator: false
