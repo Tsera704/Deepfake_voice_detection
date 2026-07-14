@@ -1,0 +1,25 @@
+# configs/paths.yaml
+
+base_data: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets"
+
+asvspoof_2019:
+  root: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets/ASVspoof2019_LA/LA"
+
+  train_audio: "ASVspoof2019_LA_train/flac"
+  dev_audio: "ASVspoof2019_LA_dev/flac"
+  eval_audio: "ASVspoof2019_LA_eval/flac"
+
+  protocols: "ASVspoof2019_LA_cm_protocols"
+
+  train_protocol_file: "ASVspoof2019.LA.cm.train.trn.txt"
+  dev_protocol_file: "ASVspoof2019.LA.cm.dev.trl.txt"
+  eval_protocol_file: "ASVspoof2019.LA.cm.eval.trl.txt"
+
+in_the_wild:
+  root: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets/In_The_Wild/release_in_the_wild"
+
+output:
+  features: "/content/drive/MyDrive/DeepFakeVoiceResearch/features"
+  models: "/content/drive/MyDrive/DeepFakeVoiceResearch/models"
+  results: "/content/drive/MyDrive/DeepFakeVoiceResearch/results"
+  figures: "/content/drive/MyDrive/DeepFakeVoiceResearch/figures"

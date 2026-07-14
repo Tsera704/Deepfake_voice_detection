@@ -1,11 +1,12 @@
 numpy>=1.22.0
 scipy>=1.8.0
 librosa>=0.10.0
-spafe>=0.3.3      # For CQCC extraction
-h5py>=3.8.0       # For chunked data I/O
+spafe>=0.3.3
+h5py>=3.8.0
 scikit-learn>=1.2.0
 xgboost>=1.7.0
-optuna>=3.1.0     # For Bayesian optimization
-mlflow>=2.3.0     # For experiment tracking
-shap>=0.41.0      # For explainability
+optuna>=3.1.0
+mlflow>=2.3.0
+shap>=0.41.0
 pyyaml>=6.0
+samplerate>=0.1.0

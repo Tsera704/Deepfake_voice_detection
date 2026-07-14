@@ -1,4 +1,20 @@
-imputation:
-  strategy: "most_frequent"
-  missing_values: "NaN"
-  add_indicator: false
+mlflow:
+  tracking_uri: "/content/drive/MyDrive/DeepFakeVoiceResearch/models/mlruns"
+  experiment_name: "explainable_deepfake_detection"
+
+svm:
+  cv_folds: 5
+  grid_search:
+    C: [0.01, 0.1, 1.0, 10.0, 100.0]
+    gamma: ["scale", "auto", 0.0001, 0.001, 0.01, 0.1]
+    kernel: ["rbf", "linear"]
+
+xgboost:
+  cv_folds: 5
+  optuna_study:
+    n_trials: 50
+    param_space:
+      n_estimators: [100, 500]
+      max_depth: [4, 12]
+      learning_rate: [0.01, 0.1]
+      subsample: [0.6, 1.0]

@@ -1,16 +1,31 @@
-sampling_rate: 16000
-n_mfcc: 20
-n_lfcc: 20
-n_cqcc: 20
-frame_length: 25.0 # in milliseconds
-frame_stride: 10.0 # in milliseconds
-window_type: "hamming"
-pre_emphasis: 0.97
+pipeline:
+  sampling_rate: 16000
+  frame_length_ms: 25.0
+  frame_stride_ms: 10.0
+  window_type: "hamming"
+  pre_emphasis: 0.97
 
-# Utterance-level statistics to compute over the frames
+features:
+  mfcc:
+    n_mfcc: 40
+    n_mels: 40
+  lfcc:
+    n_lfcc: 40
+    n_filters: 40
+  cqcc:
+    B: 96
+    d: 16
+    cf: 19
+    
 stats:
   - "mean"
   - "std"
   - "skew"
   - "kurtosis"
-  - "median"
+  - "min"
+  - "max"
+  - "p5"
+  - "p25"
+  - "p50"
+  - "p75"
+  - "p95"
