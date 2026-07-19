@@ -10,8 +10,8 @@ def mount_drive():
 def verify_paths(base_path="/content/drive/MyDrive/DeepFakeVoiceResearch"):
     """Validates and builds target output directories on the Shared Drive."""
     required_dirs = [
+        "datasets/smoke_test/flac",
         "datasets/ASVspoof2019_LA",
-        "datasets/WaveFake",
         "datasets/In_The_Wild",
         "features",
         "models/mlruns",

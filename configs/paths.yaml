@@ -1,6 +1,9 @@
-# configs/paths.yaml
-
 base_data: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets"
+
+smoke_test:
+  root: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets/smoke_test"
+  audio: "flac"
+  protocol_file: "protocol.txt"
 
 asvspoof_2019:
   root: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets/ASVspoof2019_LA/LA"

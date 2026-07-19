@@ -52,6 +52,9 @@ def append_chunk(file_path, group_name, features, labels, file_ids, checkpoint_p
             grp['labels'][curr_size:new_size] = labels
             grp['file_ids'][curr_size:new_size] = encoded_ids
             
+        # Explicit flush to guarantee data survives kernel disconnects
+        hf.flush()
+            
     print(f"[WRITE SUCCESS] Appended {features.shape[0]} items to {group_name}. New dataset size: {new_size}")
 
 def read_hdf5_split(file_path, group_name):

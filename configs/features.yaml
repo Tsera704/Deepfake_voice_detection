@@ -1,31 +1,21 @@
-pipeline:
-  sampling_rate: 16000
-  frame_length_ms: 25.0
-  frame_stride_ms: 10.0
-  window_type: "hamming"
-  pre_emphasis: 0.97
+# configs/features.yaml
+smoke_test: false
+sample_rate: 16000
 
 features:
   mfcc:
-    n_mfcc: 40
-    n_mels: 40
+    n_mfcc: 24
+    n_fft: 512
+    hop_length: 160
+    window: "hann"
+  
   lfcc:
-    n_lfcc: 40
-    n_filters: 40
-  cqcc:
-    B: 96
-    d: 16
-    cf: 19
-    
-stats:
-  - "mean"
-  - "std"
-  - "skew"
-  - "kurtosis"
-  - "min"
-  - "max"
-  - "p5"
-  - "p25"
-  - "p50"
-  - "p75"
-  - "p95"
+    n_lfcc: 20
+    n_fft: 512
+    hop_length: 160
+    window: "hann"
+  
+  spectral:
+    n_fft: 512
+    hop_length: 160
+    window: "hann"

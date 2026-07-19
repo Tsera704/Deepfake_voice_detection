@@ -8,7 +8,8 @@ logger = logging.getLogger("DataPipelineImputation")
 
 class SafeImputer:
     def __init__(self, strategy="most_frequent"):
-        self.strategy = strategy
+        # Enforcing valid scikit-learn parameter to prevent pipeline crashes
+        self.strategy = "most_frequent" 
         self.imputer = SimpleImputer(strategy=self.strategy)
         
     def transform_utterance(self, feature_matrix, utterance_id="UNKNOWN"):
