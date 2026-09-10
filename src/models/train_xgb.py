@@ -19,7 +19,7 @@ def _select_k(cfg, n_feat):
 
 
 def build_pipeline(cfg, n_feat, params=None):
-    vt = cfg.get("feature_select", {}).get("variance_threshold", 1e-4)
+    vt = float(cfg.get("feature_select", {}).get("variance_threshold", 1e-4))
     k = _select_k(cfg, n_feat)
     rs = cfg.get("training", {}).get("random_state", 42)
     clf_params = dict(
@@ -33,7 +33,7 @@ def build_pipeline(cfg, n_feat, params=None):
     XGBClassifier = _xgb_class()
     return Pipeline([
         ("scaler", StandardScaler()),
-        ("var", VarianceThreshold(threshold=vt)),
+        ("var", VarianceThreshold(threshold= float(vt))),
         ("select", SelectKBest(mutual_info_classif, k=k)),
         ("clf", XGBClassifier(**clf_params)),
     ])
