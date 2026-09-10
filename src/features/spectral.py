@@ -14,13 +14,12 @@ def extract_spectral(dsp_cache, sr, config):
     rolloff_85 = librosa.feature.spectral_rolloff(S=S, sr=sr, roll_percent=0.85)
     rolloff_95 = librosa.feature.spectral_rolloff(S=S, sr=sr, roll_percent=0.95)
     flatness = librosa.feature.spectral_flatness(S=S)
-    rms = librosa.feature.rms(S=S)
-    
-    # ZCR still requires the raw time-domain audio array
+    # Use frame_length matching the STFT parameters for RMS
+    rms = librosa.feature.rms(S=S, frame_length=n_fft, hop_length=hop_length)
     zcr = librosa.feature.zero_crossing_rate(audio, frame_length=n_fft, hop_length=hop_length)
     if zcr.shape[1] > S.shape[1]:
         zcr = zcr[:, :S.shape[1]]
-        
+    
     spectral_combined = np.vstack([
         centroid, bandwidth, rolloff_85, rolloff_95, flatness, rms, zcr
     ])

@@ -20,15 +20,17 @@ def init_hdf5(file_path, feature_dim):
         hf.attrs['feature_dimension'] = feature_dim
         print(f"[INITIALIZED] Empty HDF5 container created at {file_path} with structural dim {feature_dim}")
 
-def append_chunk(file_path, group_name, features, labels, file_ids, checkpoint_path):
+def append_chunk(file_path, group_name, features, labels, file_ids, checkpoint_path=None):
     """
-    Appends processed feature groups to disk dynamically. 
+    Appends processed feature groups to disk dynamically.
     Maintains infinite layout growth configurations via unbounded maxshape definitions.
     """
     features = np.array(features, dtype=np.float32)
     labels = np.array(labels, dtype=np.int32)
-    encoded_ids = [fid.encode('utf-8') for fid in file_ids]
-    
+    if features.ndim == 1:
+        features = features.reshape(1, -1)
+    encoded_ids = [fid if isinstance(fid, bytes) else str(fid).encode('utf-8') for fid in file_ids]
+
     with h5py.File(file_path, 'a') as hf:
         if group_name not in hf:
             grp = hf.create_group(group_name)
@@ -36,25 +38,23 @@ def append_chunk(file_path, group_name, features, labels, file_ids, checkpoint_p
             grp.create_dataset('labels', data=labels, maxshape=(None,), chunks=True)
             str_type = h5py.string_dtype(encoding='utf-8')
             grp.create_dataset('file_ids', data=encoded_ids, maxshape=(None,), dtype=str_type, chunks=True)
+            new_size = features.shape[0]
         else:
             grp = hf[group_name]
             curr_size = grp['features'].shape[0]
             addition_size = features.shape[0]
             new_size = curr_size + addition_size
-            
-            # Unfold target datasets dynamically
+
             grp['features'].resize((new_size, features.shape[1]))
             grp['labels'].resize((new_size,))
             grp['file_ids'].resize((new_size,))
-            
-            # Write chunk contents straight to disk
+
             grp['features'][curr_size:new_size] = features
             grp['labels'][curr_size:new_size] = labels
             grp['file_ids'][curr_size:new_size] = encoded_ids
-            
-        # Explicit flush to guarantee data survives kernel disconnects
+
         hf.flush()
-            
+
     print(f"[WRITE SUCCESS] Appended {features.shape[0]} items to {group_name}. New dataset size: {new_size}")
 
 def read_hdf5_split(file_path, group_name):

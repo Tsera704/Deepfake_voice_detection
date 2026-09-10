@@ -8,8 +8,10 @@ logger = logging.getLogger("DataPipelineImputation")
 
 class SafeImputer:
     def __init__(self, strategy="most_frequent"):
-        # Enforcing valid scikit-learn parameter to prevent pipeline crashes
-        self.strategy = "most_frequent" 
+        allowed = {"mean", "median", "most_frequent", "constant"}
+        self.strategy = strategy if strategy in allowed else "most_frequent"
+        if strategy not in allowed:
+            logger.warning(f"[IMPUTER] Unknown strategy '{strategy}', falling back to most_frequent.")
         self.imputer = SimpleImputer(strategy=self.strategy)
         
     def transform_utterance(self, feature_matrix, utterance_id="UNKNOWN"):

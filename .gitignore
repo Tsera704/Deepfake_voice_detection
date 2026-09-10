@@ -1,0 +1,68 @@
+# ==========================================
+# DeepFake Voice Research Pipeline
+
+# Datasets
+datasets/*
+!datasets/.gitkeep
+
+# Extracted Feature
+features/*
+!features/.gitkeep
+
+# Models & MLflow
+models/*
+!models/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+
+# Results
+results/*
+!results/.gitkeep
+
+figures/*
+!figures/.gitkeep
+
+# Secrets
+configs/kaggle.json
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+
+# IDEs
+.vscode/
+.idea/
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Temporary Files
+*.tmp
+*.bak
+*.swp
+
+# OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db

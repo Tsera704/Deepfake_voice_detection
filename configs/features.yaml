@@ -1,6 +1,13 @@
 # configs/features.yaml
-smoke_test: false
+smoke_test_mode: false
 sample_rate: 16000
+stats: ["mean", "std"]
+
+pipeline:
+  frame_length_ms: 25
+  frame_stride_ms: 10
+  pre_emphasis: 0.97
+  window_type: "hann"
 
 features:
   mfcc:
@@ -8,14 +15,59 @@ features:
     n_fft: 512
     hop_length: 160
     window: "hann"
+    n_mels: 128
   
   lfcc:
     n_lfcc: 20
+    n_filters: 23
     n_fft: 512
     hop_length: 160
     window: "hann"
-  
+    
   spectral:
     n_fft: 512
     hop_length: 160
     window: "hann"
+
+  # CQCC settings - cached from Kaggle GPU precomputation
+  cqcc:
+    use_cached: true
+    cache_dir: "/content/drive/MyDrive/DeepFakeVoiceResearch/datasets/ASVspoof2019_LA/cache/"
+    cache_file_train: "cqcc_cache_train.h5"
+    cache_file_dev: "cqcc_cache_dev.h5"
+    cache_file_eval: "cqcc_cache_eval.h5"
+    n_cqcc: 20
+    max_frames: 300
+
+feature_select:
+  variance_threshold: 1e-4
+  mutual_info_k: 200
+  apply_inside_cv: true
+
+smoke_test:
+  n_bonafide: 50
+  n_spoof: 50
+  max_files: 100
+  cqcc_from_cache: true
+  feat_dim: 318
+
+training:
+  cv_folds: 5
+  random_state: 42
+  n_jobs: -1
+
+xgboost:
+  n_trials: 50
+  timeout: 3600
+
+svm:
+  C_range: [0.1, 1, 10, 100]
+  gamma_range: [0.001, 0.01, 0.1, 1]
+
+evaluation:
+  metrics: ["eer", "roc_auc", "f1", "min_tdcf"]
+  datasets: ["asvspoof2019_la", "wavefake", "in_the_wild"]
+
+shap:
+  n_samples: 500
+  max_display: 20
